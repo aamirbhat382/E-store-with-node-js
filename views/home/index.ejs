@@ -1,0 +1,31 @@
+<section class="text-gray-600 body-font bg-gray-50	">
+    <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-wrap -m-4 bg-transparent">
+            <% result.forEach(element=>{ %>
+                <div class="lg:w-1/4 md:w-1/2 p-4 w-full border-1 border-blue-100 ">
+                    <a class="block relative h-48 rounded overflow-hidden">
+                        <img alt="ecommerce" class="object-cover object-center w-full h-full block"
+                            src="<%-element.productImagePath%>">
+                    </a>
+                    <div class="flex items-center justify-between">
+                        <div class="mt-4">
+                            <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
+                            <h2 class="text-gray-900 title-font text-lg font-medium">
+                                <%-element.productName%>
+                            </h2>
+                            <p class="mt-1">$
+                                <%-element.productPrice%>
+                            </p>
+                        </div>
+                        <div class="mt-4">
+                            <button type="btn" class="bg-blue-400 py-2 px-2 text-white  rounded-md">Button</button>
+                            <span class="material-icons mx-1">
+                                shopping_cart
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <% })%>
+        </div>
+    </div>
+</section>

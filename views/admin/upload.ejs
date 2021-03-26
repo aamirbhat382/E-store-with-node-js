@@ -1,0 +1,21 @@
+<div class="container my-3 bg-light p-3">
+    <form action="/admin/upload" method="post">
+        <input type="file" class="filepond" name="productImage" multiple data-allow-reorder="true" data-max-file-size="10MB" data-max-files="1">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="productName" placeholder="Product Name" aria-label="Product Name" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">$</span>
+            <input type="text" class="form-control" name="productPrice" aria-label="Amount (to the nearest dollar)">
+            <span class="input-group-text">.00</span>
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Datiles</span>
+            <textarea class="form-control" name="productDatiles" aria-label="productDatiles"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary d-block mx-auto my-1">Submit</button>
+    </form>
+</div>
+
+
+<%- include('../partials/upload'); -%>
