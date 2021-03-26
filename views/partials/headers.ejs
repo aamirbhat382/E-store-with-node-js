@@ -1,18 +1,22 @@
 <header class="flex justify-between p-3.5	border-b-2 border-blue-400 items-center bg-gray-100">
     <div class="brand mx-3 text-gray-900 font-bold font-sans text-lg">Aamir Enterprises</div>
     <nav class="mx-3">
-        <a href="" class="font-semibold mr-1">Home</a>
+        <a href="/" class="font-semibold mr-1">Home</a>
         <a href="" class="font-semibold mr-1">About</a>
         <a href="" class="font-semibold mr-1">Contact</a>
         <a href="" class="font-semibold mr-1">Cart</a>
         <a href="" class="font-semibold mr-1">Track</a>
     </nav>
-    <div class="cart">
-        <span class="material-icons mx-1">
-            shopping_cart
-        </span>
-        <span class="material-icons mx-1">
-            account_circle
-        </span>
+    <div class="cart flex items-center">
+        <a href="/cart" class="inline-flex items-center border-1 border-blue-400 px-6 py-2  mr-1 rounded cursor-pointer">
+            <span class="material-icons">
+                shopping_cart
+            </span>
+            <span class="text-lg" id="cart-length">0</span>
+        </a>
+        <div>
+            <a href="/singup" class="inline-flex text-white bg-indigo-500 border-0 px-6 mr-2 py-2 focus:outline-none hover:bg-indigo-600 rounded text-lg">Sing
+                Up</a>
+        </div>
     </div>
 </header>

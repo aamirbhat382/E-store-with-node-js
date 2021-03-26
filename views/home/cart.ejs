@@ -1,0 +1,62 @@
+<section class="text-gray-600 body-font my-3">
+    <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+        <table class="table-auto w-full text-left whitespace-no-wrap">
+            <thead>
+                <tr>
+                    <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
+                        Items</th>
+                    <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                        Name</th>
+                    <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                        Price</th>
+                    <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                        Totel</th>
+                    <th class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
+    <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
+        <a class="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0" id="totelOfItems">
+        </a>
+        <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">BUY</button>
+    </div>
+    </div>
+</section>
+<script>
+    let LocalCart = JSON.parse(localStorage.getItem('Cart'))
+    if (LocalCart != null) {
+        let html = ''
+        let sum = 0
+        const entries =
+            Object.entries(LocalCart)
+        entries.forEach((element, index) => {
+
+            priceOfProduct = element[1][2].slice(2, )
+            Rate = Number(priceOfProduct)
+            No_of_items = Number(element[1][0])
+            let totelRate = Rate * No_of_items
+            let elementPrice =
+
+                sum += totelRate
+            html += `
+            <tr>
+                    <td class="px-4 py-3 text-blue-400">${element[1][0]}</td>
+                    <td class="px-4 py-3">${element[1][1].toUpperCase()}</td>
+                    <td class="px-4 py-3">₹ ${Rate.toLocaleString()}</td>
+                    <td class="px-4 py-3 text-lg text-gray-900">₹ ${totelRate.toLocaleString()}</td>
+                    <td class="w-10 text-center">
+                        <input name="plan" type="radio">
+                    </td>
+                </tr>
+
+`
+
+        });
+        let ItemsTable = document.getElementById('tbody').innerHTML = html
+        document.getElementById('totelOfItems').innerHTML = `₹ ${sum.toLocaleString()}`
+    }
+</script>

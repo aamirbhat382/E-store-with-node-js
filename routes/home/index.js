@@ -10,4 +10,7 @@ router.get('/', (req, res) => {
     })
 
 })
+router.get('/cart', (req, res) => {
+    res.render('home/cart')
+})
 module.exports = router

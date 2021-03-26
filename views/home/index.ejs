@@ -10,20 +10,22 @@
                     <div class="flex items-center justify-between">
                         <div class="mt-4">
                             <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
-                            <h2 class="text-gray-900 title-font text-lg font-medium">
-                                <%-element.productName%>
-                            </h2>
-                            <p class="mt-1">$
+                            <h2 class="text-blue-900 title-font text-lg font-medium" id="price<%-element.id%>">
+                                ₹
                                 <%-element.productPrice%>
+                            </h2>
+                            <p class=" mt-1 text-gray-900 uppercase " id="name<%-element.id%>">
+                                <%-element.productName%>
                             </p>
                         </div>
-                        <div class="mt-4">
-                            <button type="btn" class="bg-blue-400 py-2 px-2 text-white  rounded-md">Button</button>
-                            <span class="material-icons mx-1">
+                        <div class=" Add_to_Cart mt-4 flex items-center border-1 border-blue-400 text-lg rounded hover:bg-blue-400 hover:border-transparent hover:text-gray-900 transition-colors ease-in cursor-pointer py-2 px-1" role="button" id="<%-element.id%>">
+                            <span class="material-icons">
                                 shopping_cart
                             </span>
+                            <span class="text-sm">Add To Cart</span>
                         </div>
                     </div>
+                    <a href="" class="text-blue-700 mt-1 py-2 font-semibold">Quick View </a>
                 </div>
                 <% })%>
         </div>

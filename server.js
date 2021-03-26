@@ -9,7 +9,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 
 const indexRouter = require('./routes/home/index')
-    // const authorRouter = require('./routes/authors')
+const authRouter = require('./routes/auth/singup')
 const adminRouter = require('./routes/admin/admin-upload')
 
 app.set('view engine', 'ejs')
@@ -27,7 +27,7 @@ db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
 app.use('/', indexRouter)
-    // app.use('/authors', authorRouter)
+app.use('/singup', authRouter)
 app.use('/admin', adminRouter)
 
 app.listen(process.env.PORT || 3000)
