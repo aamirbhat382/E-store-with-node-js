@@ -9,18 +9,18 @@ router.get('/', (req, res) => {
     res.render('auth/singup')
 })
 
-router.post("/register", async(req, res) => {
+router.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
         res.status(401).send("All Filed's  are required");
     }
     // check if user exist
-    User.exists({ email: email }, async(err, result) => {
-            if (result) {
-                return res.send("User With This Email Exist's");
-            }
-        })
-        // Hash the password
+    User.exists({ email: email }, async (err, result) => {
+        if (result) {
+            return res.send("User With This Email Exist's");
+        }
+    })
+    // Hash the password
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new User({
         name: req.body.name,
@@ -30,16 +30,16 @@ router.post("/register", async(req, res) => {
 
     user.save().then((response) => {
         const accessToken = jwt.sign({
-                name: response.name,
-                email: response.email,
-            },
-            "keygoeshere"
+            name: response.name,
+            email: response.email,
+        },
+            "AccesssToken"
         );
 
         const refreshToken = jwt.sign({
-                name: response.name,
-                email: response.email,
-            },
+            name: response.name,
+            email: response.email,
+        },
             "RefreshToken"
         );
 
