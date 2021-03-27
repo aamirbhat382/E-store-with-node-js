@@ -40,7 +40,7 @@ router.post("/register", async(req, res) => {
                 name: response.name,
                 email: response.email,
             },
-            "RefToken"
+            "RefreshToken"
         );
 
         // Save refresh token in database
