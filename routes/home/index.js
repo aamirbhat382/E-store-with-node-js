@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Product = require('../../models/admin/product_model')
+const auth = require('../../middlewares/auth')
 
 router.get('/', (req, res) => {
     const prouduct = Product.find().then(result => {
@@ -10,7 +11,7 @@ router.get('/', (req, res) => {
     })
 
 })
-router.get('/cart', (req, res) => {
+router.get('/cart', auth, (req, res) => {
     res.render('home/cart')
 })
 module.exports = router

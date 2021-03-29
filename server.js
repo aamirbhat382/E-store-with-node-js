@@ -7,10 +7,20 @@ const app = express()
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
+const checkUser = require('./middlewares/checkuser')
+
+
+
+// Global middleware
+
 
 const indexRouter = require('./routes/home/index')
 const authRouter = require('./routes/auth/singup')
 const adminRouter = require('./routes/admin/admin-upload')
+
+
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
@@ -18,16 +28,27 @@ app.set('layout', 'layout')
 app.use(expressLayouts)
 app.use(methodOverride('_method'))
 app.use(express.static('public'))
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
+app.use(express.json())
 
-const mongoose = require('mongoose')
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
-const db = mongoose.connection
-db.on('error', error => console.error(error))
-db.once('open', () => console.log('Connected to Mongoose'))
+// Database connection
 
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: true });
+const connection = mongoose.connection;
+connection.once('open', () => {
+    console.log('Database connected...');
+}).catch(err => {
+    console.log('Connection failed...')
+});
+
+
+app.get('*', checkUser);
 app.use('/', indexRouter)
 app.use('/singup', authRouter)
 app.use('/admin', adminRouter)
 
-app.listen(process.env.PORT || 3000)
+app.listen()
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server Started at Port 3000`)
+})

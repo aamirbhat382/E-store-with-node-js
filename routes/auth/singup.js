@@ -1,72 +1,61 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../../models/user/user')
+const loginUser = require('../../middlewares/loginuser')
 const jwt = require("jsonwebtoken");
-const Refresh = require("../../models/user/refresh");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
-router.get('/', (req, res) => {
+router.get('/', loginUser, (req, res) => {
     res.render('auth/singup')
 })
 
-router.post("/register", async (req, res) => {
-    const { name, email, password } = req.body;
+router.post('/register', loginUser, (req, res) => {
+    // console.log(req.body);
+    const { name, email, password } = req.body
+        // check for required 
     if (!name || !email || !password) {
-        res.status(401).send("All Filed's  are required");
+        return res.status(422).json({ error: 'All fields are required' })
     }
-    // check if user exist
-    User.exists({ email: email }, async (err, result) => {
+
+    User.findOne({ email: email }).then(async result => {
         if (result) {
-            return res.send("User With This Email Exist's");
+            return res.status(422).json({ error: 'User with this email already exist!' });
         }
-    })
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: hashedPassword,
-    });
-
-    user.save().then((response) => {
-        const accessToken = jwt.sign({
-            name: response.name,
-            email: response.email,
-        },
-            "AccesssToken"
-        );
-
-        const refreshToken = jwt.sign({
-            name: response.name,
-            email: response.email,
-        },
-            "RefreshToken"
-        );
-
-        // Save refresh token in database
-
-        const refreshTokenDocument = new Refresh({
-            Token: refreshToken
-        });
-        refreshTokenDocument.save().then((doc) => {
-            res.setHeader(
-                "accessToken", accessToken,
-                "refreshToken", refreshToken,
-                "type", "Bearer"
-            )
-            const headers = {
-                accessToken: accessToken,
-                refreshToken: refreshToken,
-                type: "Bearer",
-            };
-            return res.render("home/main", { headers })
-
-        }).catch((err) => {
-            console.log(err);
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const user = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword
         })
-    }).catch(err => {
-        console.log(err)
-    });
-});
+        const token = await user.generateAuthToken()
+        user.save().then(response => {
+            res.cookie('jwt_register', token, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24), httpOnly: true })
+            return res.redirect('/')
+        }).catch(err => {
+            return res.status(500).send({ error: 'Something went wrong' });
+        })
+    })
+})
 
+// login
+router.post('/login', loginUser, async(req, res) => {
+    // check for required 
+    try {
+        if (!req.body.email || !req.body.password) {
+            return res.status(422).json({ error: 'All fields are required' })
+        }
+        const password = req.body.password
+        const uesremail = await User.findOne({ email: req.body.email })
+        const isMatch = await bcrypt.compare(password, uesremail.password)
+        const token = await uesremail.generateAuthToken()
+        if (isMatch) {
+            res.cookie('jwt_youAreIn', token, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24), httpOnly: true })
+            return res.redirect('/')
+        } else {
+            return res.status(401).json({ error: 'Username or password is wrong!' })
+        }
+    } catch (error) {
+        return res.status(401).json({ error: 'Username or password is wrong!' })
+    }
+})
 module.exports = router;

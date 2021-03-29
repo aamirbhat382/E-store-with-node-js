@@ -30,4 +30,19 @@
                 <% })%>
         </div>
     </div>
+
+    <%if(!user) { %>
+        <li class="ml-6"><a href="/register">Register</a></li>
+        <li class="ml-6"><a href="/login">Login</a></li>
+
+        <% } else { %>
+            <li class="ml-6">
+                <h1>
+                    <%-user.email%>
+                </h1>
+                <form id="logout" action="/logout" method="POST">
+                    <a onclick="document.getElementById('logout').submit()" href="#">Logout</a>
+                </form>
+            </li>
+            <% } %>
 </section>
