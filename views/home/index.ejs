@@ -1,35 +1,34 @@
-<section class="text-gray-600 body-font bg-gray-50	">
+<section class="text-gray-600 body-font">
     <div class="container px-5 py-24 mx-auto">
-        <div class="flex flex-wrap -m-4 bg-transparent">
+        <div class="flex flex-wrap -m-4">
+            <!-- loop  -->
             <% result.forEach(element=>{ %>
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full border-1 border-blue-100 ">
+                <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
                     <a class="block relative h-48 rounded overflow-hidden">
                         <img alt="ecommerce" class="object-cover object-center w-full h-full block"
                             src="<%-element.productImagePath%>">
                     </a>
-                    <div class="flex items-center justify-between">
-                        <div class="mt-4">
-                            <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
-                            <h2 class="text-blue-900 title-font text-lg font-medium" id="price<%-element.id%>">
-                                ₹
-                                <%-element.productPrice%>
+                    <div class="mt-4 ">
+                        <div>
+                            <h2 id="name<%-element.id%>" class=" text-gray-900 title-font sm:text-lg text-xs font-medium ">
+                                <%-element.productName.slice(0, 25)%>...
                             </h2>
-                            <p class=" mt-1 text-gray-900 uppercase " id="name<%-element.id%>">
-                                <%-element.productName%>
+                            <p class=" mt-1 " id="price<%-element.id%>">₹
+                                <%-element.productPrice%>
                             </p>
+                            <a href="/view/<%-element.id%> " class=" text-blue-500 my-1 "> View</a>
+                            <button id="<%-element.id%>" class=" Add_to_Cart inline-flex text-white bg-indigo-500 border-0 p-2 rounded sm:mx-5 item-center hover:bg-indigo-600">
+                                <span class="material-icons">
+                                    shopping_cart
+                                </span> Add To Cart
+                            </button>
                         </div>
-                        <div class=" Add_to_Cart mt-4 flex items-center border-1 border-blue-400 text-lg rounded hover:bg-blue-400 hover:border-transparent hover:text-gray-900 transition-colors ease-in cursor-pointer py-2 px-1" role="button" id="<%-element.id%>">
-                            <span class="material-icons">
-                                shopping_cart
-                            </span>
-                            <span class="text-sm">Add To Cart</span>
-                        </div>
+
                     </div>
-                    <a href="" class="text-blue-700 mt-1 py-2 font-semibold">Quick View </a>
+
                 </div>
                 <% })%>
+
         </div>
     </div>
-
-
 </section>

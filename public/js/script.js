@@ -31,6 +31,7 @@ addToCart.forEach((btn) => {
         let Idstring = btn.id.toString()
         if (Cart[Idstring] != undefined) {
             Cart[Idstring][0] = Cart[Idstring][0] + 1
+            updateCart(Cart)
         } else {
             ID = Idstring
             Name = document.getElementById(`name${ID}`).innerText
@@ -39,22 +40,10 @@ addToCart.forEach((btn) => {
             Cart[Idstring] = [qty, Name, Price]
         }
         localStorage.setItem('Cart', JSON.stringify(Cart));
+        updateCart(Cart)
     })
 })
 
 function updateCart(Cart) {
-    for (var item in Cart) {
-        // console.log(`div${item}`)
-        let d = document.getElementById(`div${item}`)
-        if (d) {
-            d.innerHTML = `
-            <button type="btn"  id='minus${item}' class="btn btn-sm bg-secondary mx-1 minus"> - </button>
-            <button type="btn"  id='val${item}' class="btn btn-sm btn-outline-secondary disabled mx-1"> ${Cart[item][0]} </button>
-            <button type="btn" id='plus${item}' class="btn btn-sm bg-secondary mx-1 plus"> + </button>  
-        `
-        }
-    }
-
-    document.getElementById('cart').innerHTML = Object.keys(Cart).length;
-
+    document.getElementById('cart-length').innerHTML = Object.keys(Cart).length;
 }
