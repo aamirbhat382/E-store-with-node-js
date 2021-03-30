@@ -2,13 +2,15 @@ window.addEventListener('load', ready)
 
 function ready() {
     FilePond.registerPlugin(
-        FilePondPluginImagePreview,
+
+        // encodes the file as base64 data
         FilePondPluginFileEncode,
-    )
+        // previews dropped images
+        // FilePondPluginImagePreview
+    );
 
-    FilePond.setOptions({
-
-    })
-
-    FilePond.parse(document.body)
+    // Select the file input and use create() to turn it into a pond
+    FilePond.create(
+        document.querySelector('.filepond')
+    );
 }

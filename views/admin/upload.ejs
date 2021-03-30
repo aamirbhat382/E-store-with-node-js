@@ -1,3 +1,6 @@
+<!-- <head>
+    <%- include('../partials/upload'); -%>
+</head> -->
 <div class="container my-3 bg-light p-3">
     <form action="/admin/upload" method="post">
         <input type="file" class="filepond" name="productImage" multiple data-allow-reorder="true" data-max-file-size="10MB" data-max-files="1">
@@ -16,6 +19,4 @@
         <button type="submit" class="btn btn-primary d-block mx-auto my-1">Submit</button>
     </form>
 </div>
-
-
 <%- include('../partials/upload'); -%>

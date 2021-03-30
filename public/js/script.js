@@ -1,3 +1,20 @@
+let hamberger = document.querySelector('.hamburger');
+let times = document.querySelector('.times');
+let mobileNav = document.querySelector('.mobile-nav');
+
+hamberger.addEventListener('click', function() {
+    console.log('clicked');
+    mobileNav.classList.toggle('open');
+
+});
+
+times.addEventListener('click', function() {
+    mobileNav.classList.remove('open');
+});
+
+
+
+
 if (localStorage.getItem('Cart') == null) {
     var Cart = {}
         // updateCart(Cart)
@@ -5,8 +22,6 @@ if (localStorage.getItem('Cart') == null) {
 
     Cart = JSON.parse(localStorage.getItem('Cart'));
     document.getElementById('cart-length').innerHTML = Object.keys(Cart).length;
-
-
 }
 
 

@@ -17,7 +17,8 @@ const checkUser = require('./middlewares/checkuser')
 
 
 const indexRouter = require('./routes/home/index')
-const authRouter = require('./routes/auth/singup')
+const authRouter = require('./routes/auth/signup')
+const loginRouter = require('./routes/auth/signin')
 const adminRouter = require('./routes/admin/admin-upload')
 
 
@@ -45,7 +46,8 @@ connection.once('open', () => {
 
 app.get('*', checkUser);
 app.use('/', indexRouter)
-app.use('/singup', authRouter)
+app.use('/signup', authRouter)
+app.use('/signin', loginRouter)
 app.use('/admin', adminRouter)
 
 app.listen()
