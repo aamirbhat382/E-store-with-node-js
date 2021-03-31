@@ -38,12 +38,20 @@ addToCart.forEach((btn) => {
             Price = document.getElementById(`price${ID}`).innerText
             qty = 1;
             Cart[Idstring] = [qty, Name, Price]
+            updateCart(Cart)
         }
         localStorage.setItem('Cart', JSON.stringify(Cart));
-        updateCart(Cart)
+
     })
 })
 
 function updateCart(Cart) {
     document.getElementById('cart-length').innerHTML = Object.keys(Cart).length;
+    new Noty({
+        theme: 'mint',
+        type: 'success',
+        timeout: 1000,
+        text: 'Item added to cart',
+        progressBar: false,
+    }).show();
 }
