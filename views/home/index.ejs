@@ -10,14 +10,17 @@
                     </a>
                     <div class="mt-4 ">
                         <div>
-                            <h2 id="name<%-element.id%>" class=" text-gray-900 title-font sm:text-lg text-xs font-medium ">
+                            <h2 id="name<%-element.id%>" class=" text-gray-900 title-font sm:text-lg text-md font-medium ">
                                 <%-element.productName.slice(0, 25)%>...
                             </h2>
-                            <p class=" mt-1 " id="price<%-element.id%>">₹
-                                <%-element.productPrice%>
-                            </p>
-                            <a href="/view/<%-element.id%> " class=" text-blue-500 my-1 "> View</a>
-                            <button id="<%-element.id%>" class=" Add_to_Cart inline-flex text-white bg-indigo-500 border-0 p-2 rounded sm:mx-5 item-center hover:bg-indigo-600">
+                            <div class="my-1">
+                                <b class="  mr-5 " id="price<%-element.id%>">₹
+                                    <%-element.productPrice%>
+                                </b>
+                                <a href="/view/<%-element.id%> " class=" text-blue-500 my-1 "> View</a>
+                            </div>
+
+                            <button id="<%-element.id%>" class=" Add_to_Cart inline-flex text-white bg-indigo-500 border-0 p-2 rounded item-center hover:bg-indigo-600">
                                 <span class="material-icons">
                                     shopping_cart
                                 </span> Add To Cart

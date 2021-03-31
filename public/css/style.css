@@ -84,6 +84,10 @@
     -o-transform: translateX(0);
 }
 
+.search-sm {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .middle {
         display: none;
@@ -96,5 +100,11 @@
     }
     .signUp {
         display: none;
+    }
+    .search-lg {
+        display: none;
+    }
+    .search-sm {
+        display: block;
     }
 }

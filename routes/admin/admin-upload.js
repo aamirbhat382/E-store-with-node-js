@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Product = require('../../models/admin/product_model')
+const admin = require('../../middlewares/admin')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
 
 function saveImage(book, coverEncoded) {
@@ -11,16 +12,16 @@ function saveImage(book, coverEncoded) {
         book.productImageType = cover.type
     }
 }
-router.get('/', (req, res) => {
+router.get('/', admin, (req, res) => {
     const prouduct = Product.find().then(result => {
-        res.render('admin/upload', { result: result })
+        res.render('admin/dashboard', { result: result })
     }).catch(err => {
         console.log(err);
     })
 
 })
 
-router.post('/upload', async(req, res) => {
+router.post('/upload', admin, async(req, res) => {
     const { productName, productPrice, productDatiles, productImage } = req.body
     if (!productName || !productPrice || !productDatiles || !productImage) {
         return res.send("All Fileds Are Required")

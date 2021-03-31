@@ -1,23 +1,33 @@
 <header>
     <div class="mobile-nav  ">
-        <div class="flex h-12 p-3 border-b border-blue-400 flex justify-between item-center">
-            <div class="flex">
-                <div class="mr-1">
-                    <span class="material-icons ">
-                        account_circle
-                    </span>
-                </div>
-                <div>
-                    <% if(user) { %>
-                        <b class=" text-xs sm:text-base ">
-                            <%- user.name%>
-                        </b>
-                        <% } else { %>
-                            <a href="">
-                                <b">Hello, Sign in</b>
-                            </a>
-                            <% } %>
-                </div>
+        <div class="flex h-12 p-3 border-b-2 border-blue-400 flex justify-between item-center">
+            <div href="/profile" class="flex">
+                <% if(user) { %>
+                    <div class="mr-1 flex items-center justify-center bg-indigo-500 hover:bg-indigo-600  w-6 h-6 rounded-full ">
+                        <h1 class="text-lg font-mono font-medium  text-white ">
+                            <%-user.name.slice(0, 1)%>
+                        </h1>
+                    </div>
+                    <% } else { %>
+                        <div class="mr-1">
+                            <span class="material-icons ">
+                                account_circle
+                            </span>
+                        </div>
+                        <% } %>
+                            <div>
+                                <% if(user) { %>
+                                    <a href="/profile">
+                                        <b class=" text-xs sm:text-base ">
+                                            <%- user.name%>
+                                        </b>
+                                    </a>
+                                    <% } else { %>
+                                        <a href="/signin">
+                                            <b>Sign in</b>
+                                        </a>
+                                        <% } %>
+                            </div>
             </div>
             <div class="times">
                 <span class="material-icons">
@@ -28,22 +38,27 @@
         <div class="px-3">
             <ul class="list-none flex flex-col my-1 ">
                 <li class="p-1 border-b border-blue-500"> <a href="/" class="font-semibold text-blue-900 hover:text-gray-900">Home</a></li>
-                <li class="p-1 border-b border-blue-500"><a href="" class="font-semibold mr-1">About</a></li>
-                <li class="p-1 border-b border-blue-500 "><a href="" class="font-semibold mr-1">Contact</a></li>
-                <li class="p-1 border-b border-blue-500"><a href="" class="font-semibold mr-1">Cart</a></li>
-                <li class="p-1 border-b border-blue-500"><a href="" class="font-semibold mr-1">Track</a></li>
-                <li class="p-1 border-b border-blue-500"><a href="/admin" class="font-semibold mr-1">Admin</a></li>
+                <% if (user && user.role==='admin' ){ %>
+                    <li class="p-1 border-b border-blue-500"><a href="/admin" class="font-semibold mr-1">Dashboard</a>
+                    </li>
+                    <% } %>
+                        <li class="p-1 border-b border-blue-500"><a href="" class="font-semibold mr-1">About</a>
+                        </li>
+                        <li class="p-1 border-b border-blue-500 "><a href="" class="font-semibold mr-1">Contact</a>
+                        </li>
+                        <li class="p-1 border-b border-blue-500"><a href="" class="font-semibold mr-1">Cart</a></li>
+                        <li class="p-1 border-b border-blue-500"><a href="" class="font-semibold mr-1">Track</a>
+                        </li>
             </ul>
         </div>
     </div>
-    <div class="flex justify-between p-3.5	border-b-2 border-blue-400 items-center ">
+    <div class="flex justify-between p-3.5 flex-wrap	border-b-2 border-blue-400 items-center ">
         <button class="hamburger  ">
             <span class="material-icons md-36  ">
                 menu
             </span>
         </button>
-        <div class="brand mx-3 text-gray-900 font-bold   sm:text-lg  font-sans ">Aamir Enterprises
-        </div>
+        <h1 class="brand   text-gray-900 font-bold    text-2xl  font-sans">Aamir Enterprises</h1>
         <nav class="mx-3 middle">
             <a href="/" class="font-semibold mr-1">Home</a>
             <a href="" class="font-semibold mr-1">About</a>
@@ -51,27 +66,56 @@
             <a href="" class="font-semibold mr-1">Cart</a>
             <a href="" class="font-semibold mr-1">Track</a>
         </nav>
-        <div class="cart flex items-center">
-            <a href="/cart" class="inline-flex items-center border-1 border-blue-400 sm:px-4 sm:py-1.5  px-1.5 py-1.5 mr-1 rounded cursor-pointer">
-                <span class="material-icons">
+        <div class="relative search-lg text-indigo-600">
+            <form action="" method="get">
+                <input type="search" name="search" placeholder="Search" class="bg-transprant h-10 px-5 pr-10  text-sm focus:outline-none border-b">
+                <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
+                    <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                        viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;"
+                        xml:space="preserve" width="512px" height="512px">
+                        <path
+                            d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+        <div class=" cart flex items-center ">
+            <a href=" /cart " class=" inline-flex items-center border-1 border-blue-400 sm:px-4 sm:py-1.5 px-3 py-1.5 mr-1 rounded cursor-pointer ">
+                <span class=" material-icons ">
                     shopping_cart
                 </span>
-                <span class="text-lg" id="cart-length">0</span>
+                <span class=" text-lg " id="cart-length">0</span>
             </a>
-            <div class="flex item-center">
+            <div class=" flex item-center ">
                 <% if(user) { %>
-                    <a href="#" class="profile inline-flex items-center  ">
-                        <span class="material-icons md-36 blue500">
-                            account_circle
-                        </span>
+                    <a href=" /profile " class=" profile flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 w-10 h-10 rounded-full ">
+                        <h1 class=" text-3xl font-mono font-medium text-white ">
+                            <%-user.name.slice(0, 1)%>
+                        </h1>
                     </a>
 
                     <% } else { %>
-                        <a href="/signup" class=" signUp inline-flex text-white bg-indigo-500 border-0 px-6 mr-2 py-2 focus:outline-none hover:bg-indigo-600 rounded text-lg">Sign
+                        <a href=" /signup " class=" signUp inline-flex text-white bg-indigo-500 border-0 px-6 mr-2 py-2 focus:outline-none hover:bg-indigo-600 rounded text-lg ">Sign
                             Up
                         </a>
                         <% } %>
             </div>
         </div>
+        <div class="relative search-sm mt-1 text-indigo-600">
+            <form action="" method="get">
+                <input type="search" name="search" placeholder="Search" class="bg-transprant  h-10 px-5 pr-10  text-sm focus:outline-none border-b ">
+                <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
+                    <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                        viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;"
+                        xml:space="preserve" width="512px" height="512px">
+                        <path
+                            d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
     </div>
+
 </header>
