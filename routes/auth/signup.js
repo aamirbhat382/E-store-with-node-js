@@ -14,12 +14,15 @@ router.post('/register', loginUser, (req, res) => {
     const { name, email, password } = req.body
         // check for required 
     if (!name || !email || !password) {
-        return res.status(422).json({ error: 'All fields are required' })
+        req.flash('error', 'All fields are required')
+        return res.status(422).redirect('/signup');
+
     }
 
     User.findOne({ email: email }).then(async result => {
         if (result) {
-            return res.status(422).json({ error: 'User with this email already exist!' });
+            req.flash('error', 'User with this email already exist!')
+            return res.status(422).redirect('/signup');
         }
         const hashedPassword = await bcrypt.hash(password, 10)
         const user = new User({
@@ -30,14 +33,15 @@ router.post('/register', loginUser, (req, res) => {
         })
         const token = await user.generateAuthToken()
         user.save().then(response => {
-            res.cookie('jwt_register', token, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24), httpOnly: true })
+            res.cookie('jwt_register', token, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), httpOnly: true })
             return res.redirect('/')
         }).catch(err => {
-            return res.status(500).send({ error: 'Something went wrong' });
+            req.flash('error', 'Something went wrong')
+            return res.status(422).redirect('/signup');
         })
     })
 })
 
-// login
+
 
 module.exports = router;

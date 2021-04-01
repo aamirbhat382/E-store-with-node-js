@@ -20,6 +20,9 @@ router.get('/', admin, (req, res) => {
     })
 
 })
+router.get('/upload', admin, (req, res) => {
+    res.render('admin/upload')
+})
 
 router.post('/upload', admin, async(req, res) => {
     const { productName, productPrice, productDatiles, productImage } = req.body
