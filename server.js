@@ -53,6 +53,9 @@ app.use('/', indexRouter)
 app.use('/signup', authRouter)
 app.use('/signin', loginRouter)
 app.use('/admin', adminRouter)
+app.use((req, res) => {
+    res.status(404).render('errors/404')
+})
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server Started at Port 3000`)
