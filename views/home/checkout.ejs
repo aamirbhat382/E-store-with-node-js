@@ -1,0 +1,45 @@
+<div class="container">
+
+    <div class=" flex flex-col sm:flex-row items-center bg-white shadow rounded-md py-5 pl-6 pr-8 sm:pr-6 sm:w-1/2 w-full mx-auto">
+
+        <div class="text-green-500">
+            <span class="material-icons md-48">
+                check_circle
+            </span>
+        </div>
+        <div class="text-sm font-medium ">Success Payment.</div>
+        <div class="text-sm tracking-wide mx-3 text-gray-500  ">Your Payment was Successful. You can use our services!
+        </div>
+        <div class="curser">
+            <span class="material-icons md-36">
+                cancel
+            </span>
+        </div>
+    </div>
+</div>
+<form action="/orders" method="post" id="payment-form">
+    <input type="hidden" name="items" value="" id="items">
+    <div class="container flex items-center my-2  flex-col">
+        <div class="relative sm:w-1/2 w-full  mb-4">
+            <select id="paymentType" name="paymentType" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline">
+                <option value="cod">Select Payment Methon</option>
+                <option value="card">Pay with card</option>
+                <option value="card">Pay with UPI</option>
+                <option value="card">Pay with Net Banking</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+            </div>
+        </div>
+
+        <input name="phone" class="border focus:outline-none focus:border-blue-500 rounded border-gray-400 p-2 sm:w-1/2 w-full mb-4" type="text" placeholder="Phone number">
+        <input name="address" class="border mb-4 focus:outline-none focus:border-blue-500 rounded  border-gray-400 p-2 sm:w-1/2 w-full" type="text" placeholder="Address">
+        <div id="card-element" class="border focus:outline-none focus:border-blue-500 rounded  border-gray-400 p-2 sm:w-1/2 w-full ">
+        </div>
+        <button class=" btn-primary px-6 py-2 rounded-full text-white font-bold mt-6 " type=" submit ">Order
+            Now</button>
+
+    </div>
+</form>

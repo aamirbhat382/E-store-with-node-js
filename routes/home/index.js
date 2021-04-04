@@ -15,11 +15,15 @@ router.get('/cart', (req, res) => {
     res.render('home/cart')
 })
 
+router.get('/checkout', auth, (req, res) => {
+    res.render('home/checkout')
+})
+
 router.get('/view/:id', async(req, res) => {
     const product = await Product.findById(req.params.id)
     res.render('home/view', { product })
 })
-router.get('/profile', (req, res) => {
+router.get('/profile', auth, (req, res) => {
     res.render('home/profile')
 })
 module.exports = router

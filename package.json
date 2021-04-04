@@ -11,6 +11,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@stripe/stripe-js": "^1.13.2",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.18.3",
         "cookie-parser": "^1.4.5",
@@ -22,7 +23,9 @@
         "jsonwebtoken": "^8.5.1",
         "method-override": "^3.0.0",
         "mongoose": "^5.4.18",
-        "noty": "^3.2.0-beta-deprecated"
+        "nodemailer": "^6.5.0",
+        "noty": "^3.2.0-beta-deprecated",
+        "stripe": "^8.142.0"
     },
     "devDependencies": {
         "dotenv": "^6.2.0",

@@ -23,14 +23,31 @@
                                 <%-user.email%>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="px-2 py-2 text-gray-500 font-semibold">Address</td>
-                            <td class="px-2 py-2">?</td>
-                        </tr>
-                        <tr>
-                            <td class="px-2 py-2 text-gray-500 font-semibold">Phone</td>
-                            <td class="px-2 py-2">?</td>
-                        </tr>
+                        <%if(user.verify==='true' ) { %>
+                            <tr>
+                                <td class="px-2 py-2 text-gray-500 font-semibold">verify</td>
+                                <td class="px-2 py-2">
+                                    True
+                                </td>
+                            </tr>
+                            <%} else { %>
+                                <tr>
+                                    <td class="px-2 py-2 text-gray-500 font-semibold">verify</td>
+                                    <td class="px-2 py-2">
+                                        False
+                                    </td>
+                                </tr>
+                                <% } %>
+
+                                    <tr>
+                                        <td class="px-2 py-2 text-gray-500 font-semibold">Address</td>
+                                        <td class="px-2 py-2">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-2 py-2 text-gray-500 font-semibold">Phone</td>
+                                        <td class="px-2 py-2">?</td>
+                                    </tr>
 
                     </tbody>
                 </table>

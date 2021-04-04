@@ -12,11 +12,13 @@ times.addEventListener('click', function() {
     mobileNav.classList.remove('open');
 });
 
-let alertClose = document.querySelector('.alert-close').addEventListener('click', () => {
+let alertClose = document.querySelector('.alert-close')
+if(alertClose){
+alertClose.addEventListener('click', () => {
     let alert = document.getElementById('alert')
     alert.style.display = 'none'
 })
-
+}
 
 if (localStorage.getItem('Cart') == null) {
     var Cart = {}
