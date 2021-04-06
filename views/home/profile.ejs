@@ -6,7 +6,7 @@
             <div class="photo-wrapper p-2">
 
                 <div class=" flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 mx-auto w-32 h-32 rounded-full ">
-                    <h1 class="text-8xl font-mono font-medium  text-white ">
+                    <h1 class="text-8xl font-mono font-medium uppercase text-white ">
                         <%-user.name.slice(0, 1)%>
                     </h1>
                 </div>
@@ -25,16 +25,18 @@
                         </tr>
                         <%if(user.verify==='true' ) { %>
                             <tr>
-                                <td class="px-2 py-2 text-gray-500 font-semibold">verify</td>
-                                <td class="px-2 py-2">
-                                    True
+                                <td class="px-2 py-2 text-gray-500 font-bold ">verify</td>
+                                <td class="px-2 py-2 text-indigo-600">
+                                    <span class="material-icons ">
+                                        check_circle
+                                    </span>
                                 </td>
                             </tr>
                             <%} else { %>
                                 <tr>
-                                    <td class="px-2 py-2 text-gray-500 font-semibold">verify</td>
-                                    <td class="px-2 py-2">
-                                        False
+                                    <td class="px-2 py-2  font-bold">verify </td>
+                                    <td class="px-2 py-2 text-indigo-600 font-bold">
+                                        <a href="/verify">verify Now</a>
                                     </td>
                                 </tr>
                                 <% } %>

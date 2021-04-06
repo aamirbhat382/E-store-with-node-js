@@ -1,14 +1,15 @@
-<div class="container">
-
-    <div class=" flex flex-col sm:flex-row items-center bg-white shadow rounded-md py-5 pl-6 pr-8 sm:pr-6 sm:w-1/2 w-full mx-auto">
-
+<div class="spinner">
+    <div class="w-12 h-12 border-4 border-yellow-900  my-2 rounded-full loader"></div>
+</div>
+<div class="container my-1">
+    <div class=" flex flex-col sm:flex-row items-center bg-white shadow rounded-md py-5 pl-6 pr-8 sm:pr-6 sm:w-1/2 w-full mx-auto payment-success">
         <div class="text-green-500">
             <span class="material-icons md-48">
                 check_circle
             </span>
         </div>
-        <div class="text-sm font-medium ">Success Payment.</div>
-        <div class="text-sm tracking-wide mx-3 text-gray-500  ">Your Payment was Successful. You can use our services!
+        <div class="text-base font-medium " id="payment-message"></div>
+        <div class="text-sm tracking-wide mx-1  text-gray-500 " id="trackID">
         </div>
         <div class="curser">
             <span class="material-icons md-36">
@@ -38,6 +39,7 @@
         <input name="address" class="border mb-4 focus:outline-none focus:border-blue-500 rounded  border-gray-400 p-2 sm:w-1/2 w-full" type="text" placeholder="Address">
         <div id="card-element" class="border focus:outline-none focus:border-blue-500 rounded  border-gray-400 p-2 sm:w-1/2 w-full ">
         </div>
+
         <button class=" btn-primary px-6 py-2 rounded-full text-white font-bold mt-6 " type=" submit ">Order
             Now</button>
 

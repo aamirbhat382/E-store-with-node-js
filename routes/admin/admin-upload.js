@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Product = require('../../models/admin/product_model')
+const Order = require('../../models/user/order')
 const admin = require('../../middlewares/admin')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
 
@@ -43,6 +44,17 @@ router.post('/upload', admin, async(req, res) => {
         console.log(error)
     }
 })
+router.get('/orders', admin, (req, res) => {
+    Order.find({ status: { $ne: 'completed' } }, null, { sort: { 'createdAt': -1 } }).populate('customerId', '-password').exec((err, orders) => {
 
+        res.render('admin/orders', { orders })
+    })
+
+})
+router.get('/orders/:id', admin, (req, res) => {
+    Order.findById(req.params.id, null, { status: { $ne: 'completed' } }).populate('customerId', '-password').exec((err, order) => {
+        res.render('admin/singleOrder', { order })
+    })
+})
 
 module.exports = router

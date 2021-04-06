@@ -1,4 +1,4 @@
-<section class="container my-3">
+<section class="container my-3" id="cartItems">
     <div class="flex flex-col ">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -39,9 +39,19 @@
 
             </div>
             <div class="">
-                <a href="#" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50">
-                    Buy Now
-                </a>
+                <%if(user && user.verify==='true' ) { %>
+                    <a href="/checkout" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50">
+                        Buy Now
+                    </a>
+                    <% }else if(!user) {%>
+                        <a href="/signin" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50">
+                            Sign In
+                        </a>
+                        <% } else{%>
+                            <a href="/verify" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50">
+                                Verify Email
+                            </a>
+                            <% } %>
             </div>
 
         </div>
@@ -50,23 +60,33 @@
 </section>
 <script>
     let LocalCart = JSON.parse(localStorage.getItem('Cart'))
+    let Cart_items = document.getElementById('cartItems')
+    if (Object.keys(LocalCart).length == 0) {
+        Cart_items.innerHTML = `<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
+      <h1 class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900">Your Cart is Blank Add Items to Cart</h1>
+      <a href="/" class="flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-10 sm:mt-0">Add</a>
+    </div>
+  </div>
+</section>`
+    } else {
+        function showCartItem(LocalCart) {
+            console.log('Called');
+            if (LocalCart != null) {
+                let html = ''
+                let sum = 0
+                const entries =
+                    Object.entries(LocalCart)
+                entries.forEach((element, index) => {
+                    priceOfProduct = element[1][2].slice(2, )
+                    Rate = Number(priceOfProduct)
+                    No_of_items = Number(element[1][0])
+                    let totelRate = Rate * No_of_items
+                    let elementPrice =
 
-    function showCartItem(LocalCart) {
-        console.log('Called');
-        if (LocalCart != null) {
-            let html = ''
-            let sum = 0
-            const entries =
-                Object.entries(LocalCart)
-            entries.forEach((element, index) => {
-                priceOfProduct = element[1][2].slice(2, )
-                Rate = Number(priceOfProduct)
-                No_of_items = Number(element[1][0])
-                let totelRate = Rate * No_of_items
-                let elementPrice =
-
-                    sum += totelRate
-                html += ` <tr>
+                        sum += totelRate
+                    html += ` <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
                                     ${element[1][1]}
@@ -91,35 +111,36 @@
 
 `
 
-            });
-            let ItemsTable = document.getElementById('tbody').innerHTML = html
-            document.getElementById('totelOfItems').innerHTML = `₹ ${sum.toLocaleString()}`
+                });
+                let ItemsTable = document.getElementById('tbody').innerHTML = html
+                document.getElementById('totelOfItems').innerHTML = `₹ ${sum.toLocaleString()}`
+            }
         }
+        window.addEventListener('onload', showCartItem(LocalCart))
+
+
+        let removeItem = document.querySelectorAll('.Remove-item')
+
+
+        function x(btn, LocalCart) {
+            removeItem.forEach((btn) => {
+                btn.addEventListener('click', async(e) => {
+                    console.log('rounded');
+                    e.preventDefault
+                    await delete LocalCart[btn.id]
+                    localStorage.setItem('Cart', JSON.stringify(LocalCart));
+                    showCartItem(LocalCart)
+                    new Noty({
+                        theme: 'mint',
+                        type: 'success',
+                        timeout: 1000,
+                        text: 'Item Removed',
+                        progressBar: false,
+                    }).show();
+                    window.location = '/cart'
+                }, true)
+            })
+        }
+        x(removeItem, LocalCart)
     }
-    window.addEventListener('onload', showCartItem(LocalCart))
-
-
-    let removeItem = document.querySelectorAll('.Remove-item')
-
-
-    function x(btn, LocalCart) {
-        removeItem.forEach((btn) => {
-            btn.addEventListener('click', async(e) => {
-                console.log('rounded');
-                e.preventDefault
-                await delete LocalCart[btn.id]
-                localStorage.setItem('Cart', JSON.stringify(LocalCart));
-                showCartItem(LocalCart)
-                new Noty({
-                    theme: 'mint',
-                    type: 'success',
-                    timeout: 1000,
-                    text: 'Item Removed',
-                    progressBar: false,
-                }).show();
-window.location = '/cart'
-            }, true)
-        })
-    }
-    x(removeItem, LocalCart)
 </script>

@@ -5,7 +5,7 @@ const Order = require('../../models/user/order')
 const auth = require('../../middlewares/auth')
 router.post('/', auth, (req, res) => {
     const { phone, items, address, stripeToken, paymentType } = req.body
-    if (!phone || !address) {
+    if (!phone || !address || !stripeToken || !items || !paymentType) {
         return res.status(422).json({ message: 'All fields are required' });
     }
     // console.log(req.body)
@@ -27,10 +27,9 @@ router.post('/', auth, (req, res) => {
         phone,
         address
     })
-    order.save().then(result => {
-        Order.populate(result, { path: 'customerId' }, (err, placedOrder) => {
-            console.log(sum);
-            if (paymentType === 'card') {
+    if (paymentType === 'card') {
+        order.save().then(result => {
+            Order.populate(result, { path: 'customerId' }, (err, placedOrder) => {
                 stripe.charges.create({
                     amount: sum * 100,
                     source: stripeToken,
@@ -40,17 +39,18 @@ router.post('/', auth, (req, res) => {
                     placedOrder.paymentStatus = true
                     placedOrder.paymentType = paymentType
                     placedOrder.save().then((ord) => {
-                        return res.json({ message: 'Payment successful, Order placed successfully', success: 'True' });
+                        return res.json({ message: 'Payment successful, Order placed successfully', success: 'True', id: placedOrder._id });
                     }).catch((err) => {
                         console.log(err)
                     })
 
                 }).catch((err) => {
-                    return res.json({ message: 'OrderPlaced but payment failed, You can pay at delivery time' });
+                    return res.json({ message: ' payment failed, Try Again' });
                 })
-            }
+
+            })
         })
-    })
+    }
 })
 
 module.exports = router

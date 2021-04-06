@@ -29,6 +29,10 @@ if (items) {
 
 
 // Ajax call
+let paymentSuccess = document.querySelector('.payment-success')
+let paymentMessage = document.getElementById('payment-message')
+let trackID = document.getElementById('trackID')
+let spinner = document.querySelector('.spinner')
 const paymentForm = document.querySelector('#payment-form');
 if (paymentForm) {
     paymentForm.addEventListener('submit', async(e) => {
@@ -38,10 +42,10 @@ if (paymentForm) {
         for (let [key, value] of formData.entries()) {
             formObject[key] = value
         }
-
         stripe.createToken(card).then((result) => {
             formObject.stripeToken = result.token.id;
             // placeOrder(formObject);
+            spinner.style.display = 'flex'
             fetch('/orders', {
                     method: 'POST', // or 'PUT'
                     headers: {
@@ -57,14 +61,29 @@ if (paymentForm) {
                         text: data.message,
                         progressBar: false,
                     }).show();
+
                     if (data.success === 'True') {
-                        console.log('Success:', data)
+                        paymentMessage.innerText = data.message
+                        trackID.innerHTML = `<a href="/${data.id}"> Track Order Status</a> `
+                        spinner.style.display = 'none'
+                        paymentSuccess.style.display = 'flex'
+                        localStorage.clear('Cart')
+                    } else {
+                        paymentMessage.innerText = data.message
+                        spinner.style.display = 'none'
+                        paymentSuccess.style.display = 'flex'
                     };
                 })
                 .catch((error) => {
+                    paymentMessage.innerText = error
+                    spinner.style.display = 'none'
+                    paymentSuccess.style.display = 'flex'
                     console.error('Error:', error);
                 });
         }).catch((err) => {
+            paymentMessage.innerText = `Something Went Wrong`
+            spinner.style.display = 'none'
+            paymentSuccess.style.display = 'flex'
             console.log(err)
         })
 
