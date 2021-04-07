@@ -80,37 +80,14 @@
                     </span>
                     <button id="<%-product.id%>" class=" Add_to_Cart  ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add
                         To Cart</button>
+                    <% if (user && user.role==='admin' ){ %>
+                        <a href="/admin/delete/<%-product._id%>" class=" Add_to_Cart  ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Delete
+                        </a>
 
+                        <% } %>
                 </div>
             </div>
         </div>
     </div>
+
 </section>
-<!-- <script>
- if (localStorage.getItem('Cart') == null) {
-        var Cart = {}
-            // updateCart(Cart)
-    } else {
-
-        Cart = JSON.parse(localStorage.getItem('Cart'));
-        document.getElementById('cart-length').innerHTML = Object.keys(Cart).length;
-    }
-
-
-    let addToCart = document.querySelectorAll(".Add_to_Cart")
-    addToCart.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            let Idstring = btn.id.toString()
-            if (Cart[Idstring] != undefined) {
-                Cart[Idstring][0] = Cart[Idstring][0] + 1
-            } else {
-                ID = Idstring
-                Name = document.getElementById(`name${ID}`).innerText
-                Price = document.getElementById(`price${ID}`).innerText
-                qty = 1;
-                Cart[Idstring] = [qty, Name, Price]
-            }
-            localStorage.setItem('Cart', JSON.stringify(Cart));
-        })
-    })
-</script> -->

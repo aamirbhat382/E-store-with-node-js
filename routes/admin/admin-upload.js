@@ -56,5 +56,19 @@ router.get('/orders/:id', admin, (req, res) => {
         res.render('admin/singleOrder', { order })
     })
 })
+router.get('/delete/:id', admin, (req, res) => {
+    console.log(req.params.id)
+    Product.findByIdAndDelete(req.params.id).then(result => {
+        res.redirect('/')
+    })
 
+})
+router.post('/order/status', admin, (req, res) => {
+    Order.updateOne({ _id: req.body.orderId }, { status: req.body.status }, (err, data) => {
+        if (err) {
+            return res.redirect(`/admin/orders/${req.body.orderId}`)
+        }
+        return res.redirect(`/admin/orders/${req.body.orderId}`)
+    })
+})
 module.exports = router
